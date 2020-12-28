@@ -6,15 +6,15 @@ function Footer() {
     <footer>
       <Container>
         <Divider />
+        <Box textAlign="center" m={1}>
         <Typography variant="body2" color="textSecondary">
-          <Box textAlign="center" m={1}>
           A simple note by {' '}
           <Link color="inherit" href="https://mirmousavi.com/">
             mirmousavi.com
           </Link>{' '}
           &#9679; 2019 - {new Date().getFullYear()}
-          </Box>
         </Typography>
+        </Box>
       </Container>
     </footer>
   );
