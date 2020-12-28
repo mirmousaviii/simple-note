@@ -1,17 +1,19 @@
 import React from 'react';
-import {Container, Link, Typography} from "@material-ui/core";
+import {Box, Container, Divider, Link, Typography} from "@material-ui/core";
 
 function Footer() {
   return (
     <footer>
-      <Container maxWidth="sm">
+      <Container>
+        <Divider />
         <Typography variant="body2" color="textSecondary">
-          {'Copyright © '}
+          <Box textAlign="center" m={1}>
+          A simple note by {' '}
           <Link color="inherit" href="https://mirmousavi.com/">
             mirmousavi.com
           </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
+          &#9679; 2019 - {new Date().getFullYear()}
+          </Box>
         </Typography>
       </Container>
     </footer>

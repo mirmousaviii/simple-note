@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppBar, CssBaseline, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Toolbar, Typography} from "@material-ui/core";
 
 function Header() {
   return (
-    <AppBar position="relative" color="default">
+    <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap>
           Note manager

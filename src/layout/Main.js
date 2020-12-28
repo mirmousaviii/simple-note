@@ -1,15 +1,15 @@
 import NoteCreator from "../component/NoteCreator";
 import NoteList from "../component/NoteList";
-import {Grid} from "@material-ui/core";
+import {Container, CssBaseline} from "@material-ui/core";
+import React from "react";
 
 function Main() {
 
-  // TODO: Use material style
   return (
-    <Grid style={{margin: 50}}>
+    <Container maxWidth="md">
       <NoteCreator/>
       <NoteList/>
-    </Grid>
+    </Container>
   );
 }
 

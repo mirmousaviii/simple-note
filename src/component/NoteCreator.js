@@ -6,7 +6,7 @@ function NoteCreator() {
 
 
   return (
-    <Grid>
+    <Grid style={{ margin: 20 }}>
       <Button variant="outlined" fullWidth size="large" onClick={() => setOpenModal(true)}>Take a note ...</Button>
 
       <Dialog md={10} open={openModal} onClose={() => setOpenModal(false)}>
@@ -15,8 +15,10 @@ function NoteCreator() {
             <TextField label="Title" variant="outlined" fullWidth margin="normal"/>
             <TextField label="Note" multiline rows={6} variant="outlined" fullWidth margin="normal"/>
             <CardActions>
-              <Button color="primary" onClick={() => setOpenModal(false)}>Discard</Button>
-              <Button color="primary">Save</Button>
+              <Grid container direction="row" justify="flex-end">
+                <Button color="primary" onClick={() => setOpenModal(false)}>Discard</Button>
+                <Button color="primary">Save</Button>
+              </Grid>
             </CardActions>
           </CardContent>
         </Card>
