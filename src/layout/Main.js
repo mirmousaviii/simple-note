@@ -1,6 +1,6 @@
 import NoteCreator from "../component/NoteCreator";
 import NoteList from "../component/NoteList";
-import {Container, CssBaseline} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import React from "react";
 
 function Main() {

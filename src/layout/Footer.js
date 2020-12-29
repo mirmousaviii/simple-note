@@ -7,7 +7,7 @@ function Footer() {
       <Container>
         <Divider />
         <Box textAlign="center" m={1}>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary" color="primary">
           A simple note by {' '}
           <Link color="inherit" href="https://mirmousavi.com/">
             mirmousavi.com
