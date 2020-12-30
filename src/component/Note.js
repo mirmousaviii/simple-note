@@ -6,12 +6,8 @@ import {MoreVert, Delete} from "@material-ui/icons";
 function Note(props) {
   const [anchorMenu, setAnchorMenu] = React.useState(null);
 
-  const handleMenuOpen = (event) => {
-    setAnchorMenu(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorMenu(null);
+  const toggleMenu = (event) => {
+    setAnchorMenu(anchorMenu == null ? event.currentTarget : null);
   };
 
   return (
@@ -27,16 +23,16 @@ function Note(props) {
       </CardContent>
       <CardActions>
         <Grid container direction="row" justify="flex-end">
-          <IconButton onClick={handleMenuOpen}>
+          <IconButton onClick={toggleMenu}>
             <MoreVert/>
           </IconButton>
           <Menu
             anchorEl={anchorMenu}
             keepMounted
             open={Boolean(anchorMenu)}
-            onClose={handleMenuClose}
+            onClose={toggleMenu}
           >
-            <MenuItem onClick={handleMenuClose}>
+            <MenuItem onClick={toggleMenu}>
               <Delete/> Delete
             </MenuItem>
           </Menu>
