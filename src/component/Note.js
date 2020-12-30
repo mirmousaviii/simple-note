@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
 import {MoreVert, Delete} from "@material-ui/icons";
+import axios from "axios";
 
 
 function Note(props) {
@@ -9,6 +10,62 @@ function Note(props) {
   const toggleMenu = (event) => {
     setAnchorMenu(anchorMenu == null ? event.currentTarget : null);
   };
+
+  function deleteNote() {
+    //TODO: Make a httpClient management
+    getAccess().then((token) => {
+      axios
+        .delete(
+          `${process.env.REACT_APP_BASE_URL}/api/v1/notes/${props.id}`,
+          {
+            headers: {
+              "typ": "JWT",
+              "Authorization": `jwt ${token}`
+            }
+          }
+        )
+        .then((response) => {
+          alert('Note Deleted!');
+          // console.log(response);
+          //TODO: Show message
+          //TODO: Re-load NoteList
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    });
+
+
+    // toggleMenu();
+    setAnchorMenu(null);
+  }
+
+
+  async function getAccess() {
+    //TODO: Make a localStorage management
+    if(localStorage.getItem('token')) {
+      return localStorage.getItem('token');
+    }
+
+    // return await axios.post(
+    return await axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/token`,
+        {
+          email: process.env.REACT_APP_USERNAME,
+          password: process.env.REACT_APP_PASSWORD
+        }
+      )
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        return localStorage.getItem('token');
+      })
+      .catch((error) => {
+        //TODO: Handle errors
+        console.log(error);
+      });
+  }
 
   return (
     <Card style={{ margin: 20 }}>
@@ -32,7 +89,7 @@ function Note(props) {
             open={Boolean(anchorMenu)}
             onClose={toggleMenu}
           >
-            <MenuItem onClick={toggleMenu}>
+            <MenuItem onClick={deleteNote}>
               <Delete/> Delete
             </MenuItem>
           </Menu>
