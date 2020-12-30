@@ -2,9 +2,11 @@ import React from "react";
 import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
 import {MoreVert, Delete} from "@material-ui/icons";
 import axios from "axios";
-
+import {useDispatch} from "react-redux";
+import {notify} from "../store/actions";
 
 function Note(props) {
+  const dispatch = useDispatch();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
 
   const toggleMenu = (event) => {
@@ -25,9 +27,8 @@ function Note(props) {
           }
         )
         .then((response) => {
-          alert('Note Deleted!');
           // console.log(response);
-          //TODO: Show message
+          dispatch(notify('The note deleted!'))
           //TODO: Re-load NoteList
         })
         .catch((error) => {
@@ -68,7 +69,7 @@ function Note(props) {
   }
 
   return (
-    <Card style={{ margin: 20 }}>
+    <Card style={{margin: 20}}>
       <CardContent>
         <Typography variant="h6" component="h6">
           {[props.title]}

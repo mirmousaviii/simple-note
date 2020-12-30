@@ -1,11 +1,15 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {notify} from '../store/actions';
 
 function NoteCreator() {
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState('');
+
 
   function toggleDialog() {
     resetForm();
@@ -61,12 +65,13 @@ function NoteCreator() {
           }
         )
         .then((response) => {
-          console.log(response);
           //TODO: Use Loading
           toggleDialog();
           //TODO: Re-load NoteList
+          dispatch(notify('The note added to list!'));
         })
         .catch((error) => {
+          //TODO: handle errors
           console.log(error);
         });
 
