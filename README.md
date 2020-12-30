@@ -22,4 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [ ] E2E test by Cypress
 
 ## References
+- https://reactjs.org/
 - https://material-ui.com/
+- https://github.com/axios/axios
+- https://redux.js.org/
