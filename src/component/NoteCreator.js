@@ -30,7 +30,7 @@ function NoteCreator() {
     // return await axios.post(
     return await axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/token`,
+        `${process.env.REACT_APP_BASE_URL}/auth/token`,
         {
           email: process.env.REACT_APP_USERNAME,
           password: process.env.REACT_APP_PASSWORD
@@ -52,7 +52,7 @@ function NoteCreator() {
 
       axios
         .post(
-          `${process.env.REACT_APP_BASE_URL}/api/v1/notes`,
+          `${process.env.REACT_APP_BASE_URL}/notes`,
           {
             title: title,
             content: content

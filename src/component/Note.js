@@ -18,7 +18,7 @@ function Note(props) {
     getAccess().then((token) => {
       axios
         .delete(
-          `${process.env.REACT_APP_BASE_URL}/api/v1/notes/${props.id}`,
+          `${process.env.REACT_APP_BASE_URL}/notes/${props.id}`,
           {
             headers: {
               "typ": "JWT",
@@ -52,7 +52,7 @@ function Note(props) {
     // return await axios.post(
     return await axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/token`,
+        `${process.env.REACT_APP_BASE_URL}/auth/token`,
         {
           email: process.env.REACT_APP_USERNAME,
           password: process.env.REACT_APP_PASSWORD
