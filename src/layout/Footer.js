@@ -12,7 +12,7 @@ function Footer() {
           <Link color="inherit" href="https://mirmousavi.com/">
             mirmousavi.com
           </Link>{' '}
-          &#9679; 2019 - {new Date().getFullYear()}
+          &#9679; 2020 - {new Date().getFullYear()}
         </Typography>
         </Box>
       </Container>
