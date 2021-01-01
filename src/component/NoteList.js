@@ -1,13 +1,14 @@
 import React from "react";
-import {Box, Grid} from "@material-ui/core";
+import {Box, Card, CardContent, Grid, Typography} from "@material-ui/core";
 import Note from "./Note";
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {showLoading} from "../store/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {showLoading, getNoteList} from "../store/actions";
 
 function NoteList() {
-  const [noteList, setNoteList] = React.useState([]);
+  // const [noteList, setNoteList] = React.useState([]);
   const dispatch = useDispatch();
+  let noteList = useSelector(state => state.note.noteList);
 
   async function getAccess() {
     //TODO: Make a localStorage management
@@ -34,33 +35,33 @@ function NoteList() {
       });
   }
 
-  function getList(token) {
-    dispatch(showLoading(true));
-    //TODO: Make a httpClient management
-    axios
-      .get(
-        `${process.env.REACT_APP_BASE_URL}/notes`,
-        {
-          headers: {
-            "typ": "JWT",
-            "Authorization": `jwt ${token}`
-          }
-        }
-      )
-      .then((response) => {
-        setNoteList(response.data);
-        dispatch(showLoading(false));
-      })
-      .catch((error) => {
-        dispatch(showLoading(false));
-        console.log(error);
-      });
-  }
+  // function getList(token) {
+  //   dispatch(showLoading(true));
+  //   //TODO: Make a httpClient management
+  //   axios
+  //     .get(
+  //       `${process.env.REACT_APP_BASE_URL}/notes`,
+  //       {
+  //         headers: {
+  //           "typ": "JWT",
+  //           "Authorization": `jwt ${token}`
+  //         }
+  //       }
+  //     )
+  //     .then((response) => {
+  //       setNoteList(response.data);
+  //       dispatch(showLoading(false));
+  //     })
+  //     .catch((error) => {
+  //       dispatch(showLoading(false));
+  //       console.log(error);
+  //     });
+  // }
 
   React.useEffect(() => {
     getAccess().then((token) => {
-      //TODO: Add loading
-      getList(token);
+      // getList(token);
+      dispatch(getNoteList(token))
     });
 
   }, []);
@@ -68,13 +69,21 @@ function NoteList() {
   return (
     <Grid>
       {noteList.length === 0 && (
-        <Box textAlign="center">
-          <h4>Note list is empty</h4>
-        </Box>
+        <Card style={{margin: 20}}>
+          <CardContent>
+            <Typography variant="h6" component="h6">
+              Empty!
+            </Typography>
+            <br/>
+            <Typography variant="body2" component="p">
+              Note list is empty
+            </Typography>
+          </CardContent>
+        </Card>
       )}
 
       {noteList.map(item => (
-        <Note title={item.title} content={item.content} id={item._id} key={item._id} />
+        <Note title={item.title} content={item.content} id={item._id} key={item._id}/>
       ))}
 
     </Grid>

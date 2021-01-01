@@ -1,8 +1,5 @@
-/**
- * Set a message for the main Snackbar
- * @param message
- * @returns {{type: string, message}}
- */
+import axios from "axios";
+
 export const notify = (message) => {
   return {
     type: 'NOTIFY',
@@ -10,11 +7,6 @@ export const notify = (message) => {
   }
 }
 
-/**
- * Clear the message of Snackbar
- * its similar to notify and I developed this part for sample of action.
- * @returns {{type: string, message: string}}
- */
 export const beQuiet = () => {
   return {
     type: 'BE_QUIET',
@@ -22,11 +14,6 @@ export const beQuiet = () => {
   }
 }
 
-/**
- * Show and hide loading
- * @param status
- * @returns {{type: string, status}}
- */
 export const showLoading = (status) => {
   return {
     type: 'SHOW_LOADING',
@@ -34,8 +21,39 @@ export const showLoading = (status) => {
   }
 }
 
+export const getNoteList = (token) => {
+  return (dispatch) => {
+    dispatch(showLoading(true));
+    return (
+      axios
+        .get(
+          `${process.env.REACT_APP_BASE_URL}/notes`,
+          {
+            headers: {
+              "typ": "JWT",
+              "Authorization": `jwt ${token}`
+            }
+          }
+        )
+        .then((response) => {
+          dispatch(showLoading(false));
+          dispatch(setNoteList((response.data)));
+        })
+        .catch((error) => {
+          dispatch(showLoading(false));
+          console.log(error);
+        })
+    );
+  }
+}
 
 
+export const setNoteList = (noteList) => {
+  return {
+    type: 'GET_NOTE_LIST',
+    noteList: noteList
+  }
+}
 
 
 //Get Token
