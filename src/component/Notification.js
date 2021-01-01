@@ -7,11 +7,11 @@ import {beQuiet} from "../store/actions";
 
 function Notification() {
   const dispatch = useDispatch();
+  let message = useSelector(state => state.notification.message);
 
   function closeSnackbar() {
     dispatch(beQuiet());
   }
-
 
   return (
     <Snackbar
@@ -19,10 +19,10 @@ function Notification() {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={Boolean(useSelector(state => state.message))}
+      open={Boolean(message)}
       autoHideDuration={5000}
       onClose={closeSnackbar}
-      message={useSelector(state => state.message)}
+      message={message}
       action={
         <IconButton size="small" aria-label="close" color="inherit" onClick={closeSnackbar}>
           <CloseIcon fontSize="small"/>

@@ -4,10 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux'
-import {notificationController} from './store/reducers'
+import reducers from './store/reducers'
 import {Provider} from 'react-redux'
 
-const store = createStore(notificationController);
+const store = createStore(reducers);
 
 ReactDOM.render(
   <Provider store={store}>

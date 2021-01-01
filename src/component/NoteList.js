@@ -2,10 +2,12 @@ import React from "react";
 import {Box, Grid} from "@material-ui/core";
 import Note from "./Note";
 import axios from "axios";
-
+import {useDispatch} from "react-redux";
+import {showLoading} from "../store/actions";
 
 function NoteList() {
   const [noteList, setNoteList] = React.useState([]);
+  const dispatch = useDispatch();
 
   async function getAccess() {
     //TODO: Make a localStorage management
@@ -33,6 +35,7 @@ function NoteList() {
   }
 
   function getList(token) {
+    dispatch(showLoading(true));
     //TODO: Make a httpClient management
     axios
       .get(
@@ -46,8 +49,10 @@ function NoteList() {
       )
       .then((response) => {
         setNoteList(response.data);
+        dispatch(showLoading(false));
       })
       .catch((error) => {
+        dispatch(showLoading(false));
         console.log(error);
       });
   }

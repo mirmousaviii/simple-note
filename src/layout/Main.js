@@ -3,6 +3,7 @@ import NoteCreator from "../component/NoteCreator";
 import NoteList from "../component/NoteList";
 import {Container} from "@material-ui/core";
 import Notification from "../component/Notification";
+import Loading from "../component/Loading";
 
 function Main() {
 
@@ -11,6 +12,7 @@ function Main() {
       <NoteCreator />
       <NoteList />
       <Notification />
+      <Loading />
     </Container>
   );
 }

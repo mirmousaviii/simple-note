@@ -22,6 +22,21 @@ export const beQuiet = () => {
   }
 }
 
+/**
+ * Show and hide loading
+ * @param status
+ * @returns {{type: string, status}}
+ */
+export const showLoading = (status) => {
+  return {
+    type: 'SHOW_LOADING',
+    loadingStatus: status
+  }
+}
+
+
+
+
 
 //Get Token
 //Update token

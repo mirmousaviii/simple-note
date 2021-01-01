@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {notify} from '../store/actions';
+import {notify, showLoading} from '../store/actions';
 
 function NoteCreator() {
   const dispatch = useDispatch();
@@ -47,6 +47,8 @@ function NoteCreator() {
   }
 
   function saveNote() {
+    dispatch(showLoading(true));
+
     //TODO: Make a httpClient management
     getAccess().then((token) => {
 
@@ -65,12 +67,13 @@ function NoteCreator() {
           }
         )
         .then((response) => {
-          //TODO: Use Loading
           toggleDialog();
+          dispatch(showLoading(false));
           //TODO: Re-load NoteList
           dispatch(notify('The note added to list!'));
         })
         .catch((error) => {
+          dispatch(showLoading(false));
           //TODO: handle errors
           console.log(error);
         });
