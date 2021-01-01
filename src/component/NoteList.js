@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Box, Card, CardContent, Grid, Typography} from "@material-ui/core";
 import Note from "./Note";
 import axios from "axios";
@@ -6,9 +6,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {showLoading, getNoteList} from "../store/actions";
 
 function NoteList() {
-  // const [noteList, setNoteList] = React.useState([]);
   const dispatch = useDispatch();
-  let noteList = useSelector(state => state.note.noteList);
+  const [noteList, setNoteList] = useState([]);
+
+  // useSelector(state => setNoteList(state.note.noteList));
+
 
   async function getAccess() {
     //TODO: Make a localStorage management
@@ -35,33 +37,11 @@ function NoteList() {
       });
   }
 
-  // function getList(token) {
-  //   dispatch(showLoading(true));
-  //   //TODO: Make a httpClient management
-  //   axios
-  //     .get(
-  //       `${process.env.REACT_APP_BASE_URL}/notes`,
-  //       {
-  //         headers: {
-  //           "typ": "JWT",
-  //           "Authorization": `jwt ${token}`
-  //         }
-  //       }
-  //     )
-  //     .then((response) => {
-  //       setNoteList(response.data);
-  //       dispatch(showLoading(false));
-  //     })
-  //     .catch((error) => {
-  //       dispatch(showLoading(false));
-  //       console.log(error);
-  //     });
-  // }
-
   React.useEffect(() => {
     getAccess().then((token) => {
       // getList(token);
-      dispatch(getNoteList(token))
+      dispatch(getNoteList(token));
+
     });
 
   }, []);

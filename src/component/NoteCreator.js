@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {notify, showLoading} from '../store/actions';
+import {saveNote, notify, showLoading} from '../store/actions';
 
 function NoteCreator() {
   const dispatch = useDispatch();
@@ -46,13 +46,13 @@ function NoteCreator() {
       });
   }
 
-  function saveNote() {
-    dispatch(showLoading(true));
+  function submitNote() {
 
     //TODO: Make a httpClient management
     getAccess().then((token) => {
 
-      axios
+      dispatch(saveNote(token, title, content));
+     /* axios
         .post(
           `${process.env.REACT_APP_BASE_URL}/notes`,
           {
@@ -77,7 +77,7 @@ function NoteCreator() {
           //TODO: handle errors
           console.log(error);
         });
-
+*/
     });
   }
 
@@ -95,7 +95,7 @@ function NoteCreator() {
             <CardActions>
               <Grid container direction="row" justify="flex-end">
                 <Button color="primary" onClick={toggleDialog}>Discard</Button>
-                <Button color="primary" onClick={saveNote}>Save</Button>
+                <Button color="primary" onClick={submitNote}>Save</Button>
               </Grid>
             </CardActions>
           </CardContent>

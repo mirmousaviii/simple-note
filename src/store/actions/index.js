@@ -47,7 +47,6 @@ export const getNoteList = (token) => {
   }
 }
 
-
 export const setNoteList = (noteList) => {
   return {
     type: 'GET_NOTE_LIST',
@@ -56,8 +55,41 @@ export const setNoteList = (noteList) => {
 }
 
 
-//Get Token
-//Update token
-//Save Note
-//Get Note List
-//Delete Note
+export const saveNote = (token, title, content) => {
+  return (dispatch, getState) => {
+    dispatch(showLoading(true));
+    return (
+      axios
+        .post(
+          `${process.env.REACT_APP_BASE_URL}/notes`,
+          {
+            title: title,
+            content: content
+          },
+          {
+            headers: {
+              "typ": "JWT",
+              "Authorization": `jwt ${token}`
+            }
+          }
+        )
+        .then((response) => {
+          dispatch(showLoading(false));
+          dispatch(addNote(response.data, getState().note.noteList));
+        })
+        .catch((error) => {
+          dispatch(showLoading(false));
+          console.log(error);
+        })
+    );
+  }
+}
+
+export const addNote = (newNote, noteList) => {
+  noteList.push(newNote);
+
+  return {
+    type: 'ADD_NOTE',
+    noteList: noteList
+  }
+}
