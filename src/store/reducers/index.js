@@ -1,18 +1,10 @@
-const initialState = {
-  message: ''
-}
+import {combineReducers} from "redux";
+import {notificationReducer} from "./notificationReducer";
+import {loadingReducer} from "./loadingReducer";
 
-export const notificationController = (state = initialState, action) => {
-  switch (action.type) {
-    case 'NOTIFY':
-    case 'BE_QUIET':
-      return {
-        ...state,
-        message: action.message
-      }
-    default:
-      return {
-        ...state
-      }
-  }
-}
+const reducers = combineReducers({
+  notification: notificationReducer,
+  loading: loadingReducer
+});
+
+export default reducers;
