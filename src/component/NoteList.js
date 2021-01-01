@@ -1,25 +1,21 @@
-import React, {useState} from "react";
-import {Box, Card, CardContent, Grid, Typography} from "@material-ui/core";
+import React from "react";
+import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import Note from "./Note";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
-import {showLoading, getNoteList} from "../store/actions";
+import {connect} from "react-redux";
+import {getNoteList} from "../store/actions";
+import store from "../store";
 
-function NoteList() {
-  const dispatch = useDispatch();
-  const [noteList, setNoteList] = useState([]);
+function NoteList({noteState}) {
 
-  // useSelector(state => setNoteList(state.note.noteList));
-
-
-  async function getAccess() {
+  function getAccess() {
     //TODO: Make a localStorage management
     if(localStorage.getItem('token')) {
-      return localStorage.getItem('token');
+      return Promise.resolve(localStorage.getItem('token'));
     }
 
     // return await axios.post(
-    return await axios
+    return Promise.resolve(axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/auth/token`,
         {
@@ -34,21 +30,21 @@ function NoteList() {
       .catch((error) => {
         //TODO: Handle errors
         console.log(error);
-      });
+      }));
   }
 
   React.useEffect(() => {
     getAccess().then((token) => {
       // getList(token);
-      dispatch(getNoteList(token));
-
+      // dispatch(getNoteList(token));
+      store.dispatch(getNoteList(token));
     });
 
   }, []);
 
   return (
     <Grid>
-      {noteList.length === 0 && (
+      {noteState.noteList.length === 0 && (
         <Card style={{margin: 20}}>
           <CardContent>
             <Typography variant="h6" component="h6">
@@ -62,7 +58,7 @@ function NoteList() {
         </Card>
       )}
 
-      {noteList.map(item => (
+      {noteState.noteList.map(item => (
         <Note title={item.title} content={item.content} id={item._id} key={item._id}/>
       ))}
 
@@ -70,4 +66,12 @@ function NoteList() {
   );
 }
 
-export default NoteList;
+
+function mapStateToProps(state) {
+  return {
+    noteState: state.note
+  }
+}
+
+
+export default connect(mapStateToProps)(NoteList);

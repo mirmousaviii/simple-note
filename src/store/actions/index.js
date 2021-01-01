@@ -41,7 +41,7 @@ export const getNoteList = (token) => {
         })
         .catch((error) => {
           dispatch(showLoading(false));
-          console.log(error);
+          dispatch(notify(error.message));
         })
     );
   }
@@ -76,10 +76,11 @@ export const saveNote = (token, title, content) => {
         .then((response) => {
           dispatch(showLoading(false));
           dispatch(addNote(response.data, getState().note.noteList));
+          dispatch(notify('The note added to list.'))
         })
         .catch((error) => {
           dispatch(showLoading(false));
-          console.log(error);
+          dispatch(notify(error.message));
         })
     );
   }

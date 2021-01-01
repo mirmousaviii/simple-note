@@ -1,11 +1,10 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {saveNote, notify, showLoading} from '../store/actions';
+import {saveNote} from '../store/actions';
+import store from "../store";
 
 function NoteCreator() {
-  const dispatch = useDispatch();
   const [openModal, setOpenModal] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState('');
@@ -21,14 +20,14 @@ function NoteCreator() {
     setContent('');
   }
 
-  async function getAccess() {
+  function getAccess() {
     //TODO: Make a localStorage management
     if(localStorage.getItem('token')) {
-      return localStorage.getItem('token');
+      return Promise.resolve(localStorage.getItem('token'));
     }
 
     // return await axios.post(
-    return await axios
+    return Promise.resolve(axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/auth/token`,
         {
@@ -43,41 +42,16 @@ function NoteCreator() {
       .catch((error) => {
         //TODO: Handle errors
         console.log(error);
-      });
+      }));
   }
 
   function submitNote() {
+    toggleDialog();
 
     //TODO: Make a httpClient management
     getAccess().then((token) => {
 
-      dispatch(saveNote(token, title, content));
-     /* axios
-        .post(
-          `${process.env.REACT_APP_BASE_URL}/notes`,
-          {
-            title: title,
-            content: content
-          },
-          {
-            headers: {
-              "typ": "JWT",
-              "Authorization": `jwt ${token}`
-            }
-          }
-        )
-        .then((response) => {
-          toggleDialog();
-          dispatch(showLoading(false));
-          //TODO: Re-load NoteList
-          dispatch(notify('The note added to list!'));
-        })
-        .catch((error) => {
-          dispatch(showLoading(false));
-          //TODO: handle errors
-          console.log(error);
-        });
-*/
+      store.dispatch(saveNote(token, title, content));
     });
   }
 
