@@ -2,8 +2,7 @@
 
 
 ## Run
-
-In the project directory, you can run:
+You can set **API** and **User information** in `.env` file and run:
 
 ### `npm start`
 
