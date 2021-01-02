@@ -3,14 +3,14 @@ import {IconButton, Snackbar} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch} from "react-redux";
-import {beQuiet} from "../store/actions";
+import {notify} from "../store/actions";
 
 function Notification() {
   const dispatch = useDispatch();
   let message = useSelector(state => state.notification.message);
 
   function closeSnackbar() {
-    dispatch(beQuiet());
+    dispatch(notify(''));
   }
 
   return (

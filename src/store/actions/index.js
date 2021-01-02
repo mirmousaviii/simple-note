@@ -1,16 +1,10 @@
 import axios from "axios";
+import store from "../index";
 
 export const notify = (message) => {
   return {
     type: 'NOTIFY',
     message: message
-  }
-}
-
-export const beQuiet = () => {
-  return {
-    type: 'BE_QUIET',
-    message: ''
   }
 }
 
@@ -21,33 +15,62 @@ export const showLoading = (status) => {
   }
 }
 
-export const getNoteList = (token) => {
+
+export const getToken = () => {
   return (dispatch) => {
-    dispatch(showLoading(true));
-    return (
-      axios
-        .get(
-          `${process.env.REACT_APP_BASE_URL}/notes`,
-          {
-            headers: {
-              "typ": "JWT",
-              "Authorization": `jwt ${token}`
-            }
-          }
-        )
-        .then((response) => {
-          dispatch(showLoading(false));
-          dispatch(setNoteList((response.data)));
-        })
-        .catch((error) => {
-          dispatch(showLoading(false));
-          dispatch(notify(error.message));
-        })
-    );
+    if(localStorage.getItem('token')) {
+      return Promise.resolve(localStorage.getItem('token'));
+    }
+
+    return Promise.resolve(axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/auth/token`,
+        {
+          email: process.env.REACT_APP_USERNAME,
+          password: process.env.REACT_APP_PASSWORD
+        }
+      )
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        return localStorage.getItem('token');
+      })
+      .catch((error) => {
+        dispatch(showLoading(false));
+        dispatch(notify(error.message));
+      }));
   }
 }
 
-export const setNoteList = (noteList) => {
+export const getNoteList = () => {
+  return (dispatch) => {
+    dispatch(showLoading(true));
+    dispatch(getToken())
+      .then((token) => {
+        return (
+          axios
+            .get(
+              `${process.env.REACT_APP_BASE_URL}/notes`,
+              {
+                headers: {
+                  "typ": "JWT",
+                  "Authorization": `jwt ${token}`
+                }
+              }
+            )
+            .then((response) => {
+              dispatch(showLoading(false));
+              dispatch(getNoteListReceiveSuccess((response.data)));
+            })
+            .catch((error) => {
+              dispatch(showLoading(false));
+              dispatch(notify(error.message));
+            })
+        );
+      });
+  }
+}
+
+export const getNoteListReceiveSuccess = (noteList) => {
   return {
     type: 'GET_NOTE_LIST',
     noteList: noteList
@@ -55,38 +78,41 @@ export const setNoteList = (noteList) => {
 }
 
 
-export const saveNote = (token, title, content) => {
+export const addNoteRequest = (title, content) => {
   return (dispatch, getState) => {
     dispatch(showLoading(true));
-    return (
-      axios
-        .post(
-          `${process.env.REACT_APP_BASE_URL}/notes`,
-          {
-            title: title,
-            content: content
-          },
-          {
-            headers: {
-              "typ": "JWT",
-              "Authorization": `jwt ${token}`
-            }
-          }
-        )
-        .then((response) => {
-          dispatch(showLoading(false));
-          dispatch(addNote(getState().note.noteList, response.data));
-          dispatch(notify('The note added to list.'))
-        })
-        .catch((error) => {
-          dispatch(showLoading(false));
-          dispatch(notify(error.message));
-        })
-    );
+    dispatch(getToken())
+      .then((token) => {
+        return (
+          axios
+            .post(
+              `${process.env.REACT_APP_BASE_URL}/notes`,
+              {
+                title: title,
+                content: content
+              },
+              {
+                headers: {
+                  "typ": "JWT",
+                  "Authorization": `jwt ${token}`
+                }
+              }
+            )
+            .then((response) => {
+              dispatch(showLoading(false));
+              dispatch(addNoteReceiveSuccess(getState().note.noteList, response.data));
+              dispatch(notify('The note added to list.'))
+            })
+            .catch((error) => {
+              dispatch(showLoading(false));
+              dispatch(notify(error.message));
+            })
+        );
+      });
   }
 }
 
-export const addNote = (noteList, newNote) => {
+export const addNoteReceiveSuccess = (noteList, newNote) => {
   noteList.push(newNote);
 
   return {
@@ -96,7 +122,7 @@ export const addNote = (noteList, newNote) => {
 }
 
 
-export const requestDeleteNote = (token, id, index) => {
+export const deleteNoteRequest = (token, id, index) => {
   return (dispatch, getState) => {
     dispatch(showLoading(true));
     return (
@@ -110,9 +136,9 @@ export const requestDeleteNote = (token, id, index) => {
             }
           }
         )
-        .then((response) => {
+        .then(() => {
           dispatch(showLoading(false));
-          dispatch(responseDeleteNote(getState().note.noteList, index));
+          dispatch(deleteNoteReceiveSuccess(getState().note.noteList, index));
           dispatch(notify('The note deleted!'))
         })
         .catch((error) => {
@@ -124,7 +150,7 @@ export const requestDeleteNote = (token, id, index) => {
   }
 }
 
-export const responseDeleteNote = (noteList, index) => {
+export const deleteNoteReceiveSuccess = (noteList, index) => {
   noteList.splice(index, 1)
 
   return {

@@ -3,7 +3,7 @@ import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typogr
 import {MoreVert, Delete} from "@material-ui/icons";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {requestDeleteNote, showLoading} from "../store/actions";
+import {deleteNoteRequest, showLoading} from "../store/actions";
 import store from "../store";
 
 function Note(props) {
@@ -17,9 +17,8 @@ function Note(props) {
   function deleteNote() {
     dispatch(showLoading(true));
 
-    //TODO: Make a httpClient management
     getAccess().then((token) => {
-      store.dispatch(requestDeleteNote(token, props.id, props.index));
+      store.dispatch(deleteNoteRequest(token, props.id, props.index));
     });
 
 
@@ -29,7 +28,6 @@ function Note(props) {
 
 
   async function getAccess() {
-    //TODO: Make a localStorage management
     if(localStorage.getItem('token')) {
       return localStorage.getItem('token');
     }
@@ -48,7 +46,6 @@ function Note(props) {
         return localStorage.getItem('token');
       })
       .catch((error) => {
-        //TODO: Handle errors
         console.log(error);
       });
   }

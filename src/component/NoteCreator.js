@@ -1,7 +1,6 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
-import axios from "axios";
-import {saveNote} from '../store/actions';
+import {addNoteRequest} from '../store/actions';
 import store from "../store";
 
 function NoteCreator() {
@@ -20,39 +19,9 @@ function NoteCreator() {
     setContent('');
   }
 
-  function getAccess() {
-    //TODO: Make a localStorage management
-    if(localStorage.getItem('token')) {
-      return Promise.resolve(localStorage.getItem('token'));
-    }
-
-    // return await axios.post(
-    return Promise.resolve(axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}/auth/token`,
-        {
-          email: process.env.REACT_APP_USERNAME,
-          password: process.env.REACT_APP_PASSWORD
-        }
-      )
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        return localStorage.getItem('token');
-      })
-      .catch((error) => {
-        //TODO: Handle errors
-        console.log(error);
-      }));
-  }
-
-  function submitNote() {
+  function addNote() {
     toggleDialog();
-
-    //TODO: Make a httpClient management
-    getAccess().then((token) => {
-
-      store.dispatch(saveNote(token, title, content));
-    });
+    store.dispatch(addNoteRequest(title, content));
   }
 
   return (
@@ -69,7 +38,7 @@ function NoteCreator() {
             <CardActions>
               <Grid container direction="row" justify="flex-end">
                 <Button color="primary" onClick={toggleDialog}>Discard</Button>
-                <Button color="primary" onClick={submitNote}>Save</Button>
+                <Button color="primary" onClick={addNote}>Save</Button>
               </Grid>
             </CardActions>
           </CardContent>

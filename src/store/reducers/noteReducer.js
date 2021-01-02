@@ -7,17 +7,11 @@ export const noteReducer = (state = initialState, action) => {
     case 'GET_NOTE_LIST':
     case 'ADD_NOTE':
     case 'DELETE_NOTE':
-      return Object.assign({}, state, {
-        noteList: action.noteList
-      })
-    // return {
-    //   ...state,
-    //   noteList: action.noteList
-    // }
+    return {
+      ...state,
+      noteList: action.noteList
+    }
     default:
       return state;
-      // return {
-      //   ...state
-      // }
   }
 }
