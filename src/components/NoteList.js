@@ -2,13 +2,12 @@ import React from "react";
 import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import Note from "./Note";
 import {connect} from "react-redux";
-import {requestNoteList} from "../store/actions/noteActions";
-import store from "../store";
+import {requestNoteList} from "../store/note/noteThunk";
 
-function NoteList({noteState}) {
+function NoteList({noteState, getNoteList}) {
 
   React.useEffect(() => {
-    store.dispatch(requestNoteList());
+    getNoteList();
   }, []);
 
   return (
@@ -33,10 +32,16 @@ function NoteList({noteState}) {
   );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     noteState: state.note
   }
 }
 
-export default connect(mapStateToProps)(NoteList);
+const mapDispatchToProps = dispatch => {
+  return {
+    getNoteList: () => dispatch(requestNoteList())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

@@ -1,7 +1,7 @@
 import axios from "axios";
-import {notify} from "./coreActions";
+import {notify} from "../core/coreActions";
 
-export const getToken = () => {
+export const requestToken = () => {
   return (dispatch) => {
     if(localStorage.getItem('token')) {
       return Promise.resolve(localStorage.getItem('token'));

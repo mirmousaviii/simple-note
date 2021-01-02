@@ -1,6 +1,4 @@
 import React from "react";
-import NoteCreator from "./NoteCreator";
-import NoteList from "./NoteList";
 import {Container, CssBaseline} from "@material-ui/core";
 import Header from "./Header";
 import Notification from "./Notification";

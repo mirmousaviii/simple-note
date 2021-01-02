@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
-import {coreReducer} from "./coreReducer";
-import {noteReducer} from "./noteReducer";
+import {coreReducer} from "./core/coreReducer";
+import {noteReducer} from "./note/noteReducer";
 
 const reducers = combineReducers({
   core: coreReducer,

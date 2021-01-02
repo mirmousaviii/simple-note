@@ -1,9 +1,9 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
-import {requestAddNote} from '../store/actions/noteActions';
-import store from "../store";
+import {requestAddNote} from '../store/note/noteThunk';
+import {connect} from "react-redux";
 
-function NoteCreator() {
+function NoteCreator({addNote}) {
   const [openModal, setOpenModal] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState('');
@@ -22,9 +22,9 @@ function NoteCreator() {
     setContent('');
   }
 
-  function addNote() {
+  function saveNote() {
     toggleDialog();
-    store.dispatch(requestAddNote(title, content));
+    addNote(title, content);
   }
 
   return (
@@ -41,7 +41,7 @@ function NoteCreator() {
             <CardActions>
               <Grid container direction="row" justify="flex-end">
                 <Button color="primary" onClick={toggleDialog}>Discard</Button>
-                <Button color="primary" onClick={addNote}>Save</Button>
+                <Button color="primary" onClick={saveNote}>Save</Button>
               </Grid>
             </CardActions>
           </CardContent>
@@ -51,4 +51,10 @@ function NoteCreator() {
   );
 }
 
-export default NoteCreator;
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: (title, content) => dispatch(requestAddNote(title, content))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NoteCreator);

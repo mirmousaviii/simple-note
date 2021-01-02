@@ -1,11 +1,12 @@
 import axios from "axios";
-import {notify, toggleLoading} from "./coreActions";
-import {getToken} from "./authActions";
+import {notify, toggleLoading} from "../core/coreActions";
+import {requestToken} from "../auth/authThunk";
+import {successDeleteNote, successAddNote, successNoteList} from "./noteActions";
 
 export const requestNoteList = () => {
   return (dispatch) => {
     dispatch(toggleLoading(true));
-    dispatch(getToken())
+    dispatch(requestToken())
       .then((token) => {
         return (
           axios
@@ -20,7 +21,7 @@ export const requestNoteList = () => {
             )
             .then((response) => {
               dispatch(toggleLoading(false));
-              dispatch(receiveNoteList((response.data)));
+              dispatch(successNoteList((response.data)));
             })
             .catch((error) => {
               dispatch(toggleLoading(false));
@@ -31,17 +32,10 @@ export const requestNoteList = () => {
   }
 }
 
-export const receiveNoteList = (noteList) => {
-  return {
-    type: 'RECEIVE_NOTE_LIST',
-    noteList: noteList
-  }
-}
-
 export const requestAddNote = (title, content) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(toggleLoading(true));
-    dispatch(getToken())
+    dispatch(requestToken())
       .then((token) => {
         return (
           axios
@@ -60,7 +54,7 @@ export const requestAddNote = (title, content) => {
             )
             .then((response) => {
               dispatch(toggleLoading(false));
-              dispatch(receiveAddNote(getState().note.noteList, response.data));
+              dispatch(successAddNote(response.data));
               dispatch(notify('The note added to list.'));
             })
             .catch((error) => {
@@ -72,48 +66,33 @@ export const requestAddNote = (title, content) => {
   }
 }
 
-export const receiveAddNote = (noteList, newNote) => {
-  noteList.push(newNote);
-
-  return {
-    type: 'RECEIVE_ADD_NOTE',
-    noteList: noteList
-  }
-}
-
-export const requestDeleteNote = (token, id, index) => {
-  return (dispatch, getState) => {
+export const requestDeleteNote = (id, index) => {
+  return (dispatch) => {
     dispatch(toggleLoading(true));
-    return (
-      axios
-        .delete(
-          `${process.env.REACT_APP_BASE_URL}/notes/${id}`,
-          {
-            headers: {
-              "typ": "JWT",
-              "Authorization": `jwt ${token}`
-            }
-          }
-        )
-        .then(() => {
-          dispatch(toggleLoading(false));
-          dispatch(receiveDeleteNote(getState().note.noteList, index));
-          dispatch(notify('The note deleted!'))
-        })
-        .catch((error) => {
-          dispatch(toggleLoading(false));
-          dispatch(notify(error.message));
-        })
+    dispatch(requestToken())
+      .then((token) => {
+        return (
+          axios
+            .delete(
+              `${process.env.REACT_APP_BASE_URL}/notes/${id}`,
+              {
+                headers: {
+                  "typ": "JWT",
+                  "Authorization": `jwt ${token}`
+                }
+              }
+            )
+            .then(() => {
+              dispatch(toggleLoading(false));
+              dispatch(successDeleteNote(index));
+              dispatch(notify('The note deleted!'))
+            })
+            .catch((error) => {
+              dispatch(toggleLoading(false));
+              dispatch(notify(error.message));
+            })
 
-    );
-  }
-}
-
-export const receiveDeleteNote = (noteList, index) => {
-  noteList.splice(index, 1)
-
-  return {
-    type: 'RECEIVE_DELETE_NOTE',
-    noteList: noteList
+        );
+      })
   }
 }

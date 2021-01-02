@@ -2,10 +2,9 @@ import React from "react";
 import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
 import {MoreVert, Delete} from "@material-ui/icons";
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {requestDeleteNote} from "../store/actions/noteActions";
-import {toggleLoading} from "../store/actions/coreActions";
-import store from "../store";
+import {connect, useDispatch} from "react-redux";
+import {requestDeleteNote} from "../store/note/noteThunk";
+import {toggleLoading} from "../store/core/coreActions";
 
 function Note(props) {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ function Note(props) {
     dispatch(toggleLoading(true));
 
     getAccess().then((token) => {
-      store.dispatch(requestDeleteNote(token, props.id, props.index));
+      props.deleteNote(props.id, props.index);
     });
 
 
@@ -83,4 +82,10 @@ function Note(props) {
   );
 }
 
-export default Note;
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteNote: (id, index) => dispatch(requestDeleteNote(id, index))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Note);

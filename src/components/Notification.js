@@ -3,7 +3,7 @@ import {IconButton, Snackbar} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch} from "react-redux";
-import {notify} from "../store/actions/coreActions";
+import {notify} from "../store/core/coreActions";
 
 function Notification() {
   const dispatch = useDispatch();
