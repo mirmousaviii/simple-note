@@ -75,7 +75,7 @@ export const saveNote = (token, title, content) => {
         )
         .then((response) => {
           dispatch(showLoading(false));
-          dispatch(addNote(response.data, getState().note.noteList));
+          dispatch(addNote(getState().note.noteList, response.data));
           dispatch(notify('The note added to list.'))
         })
         .catch((error) => {
@@ -86,11 +86,49 @@ export const saveNote = (token, title, content) => {
   }
 }
 
-export const addNote = (newNote, noteList) => {
+export const addNote = (noteList, newNote) => {
   noteList.push(newNote);
 
   return {
     type: 'ADD_NOTE',
+    noteList: noteList
+  }
+}
+
+
+export const requestDeleteNote = (token, id, index) => {
+  return (dispatch, getState) => {
+    dispatch(showLoading(true));
+    return (
+      axios
+        .delete(
+          `${process.env.REACT_APP_BASE_URL}/notes/${id}`,
+          {
+            headers: {
+              "typ": "JWT",
+              "Authorization": `jwt ${token}`
+            }
+          }
+        )
+        .then((response) => {
+          dispatch(showLoading(false));
+          dispatch(responseDeleteNote(getState().note.noteList, index));
+          dispatch(notify('The note deleted!'))
+        })
+        .catch((error) => {
+          dispatch(showLoading(false));
+          dispatch(notify(error.message));
+        })
+
+    );
+  }
+}
+
+export const responseDeleteNote = (noteList, index) => {
+  noteList.splice(index, 1)
+
+  return {
+    type: 'DELETE_NOTE',
     noteList: noteList
   }
 }

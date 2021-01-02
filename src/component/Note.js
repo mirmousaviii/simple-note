@@ -3,7 +3,8 @@ import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typogr
 import {MoreVert, Delete} from "@material-ui/icons";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {notify, showLoading} from "../store/actions";
+import {requestDeleteNote, showLoading} from "../store/actions";
+import store from "../store";
 
 function Note(props) {
   const dispatch = useDispatch();
@@ -18,27 +19,7 @@ function Note(props) {
 
     //TODO: Make a httpClient management
     getAccess().then((token) => {
-      axios
-        .delete(
-          `${process.env.REACT_APP_BASE_URL}/notes/${props.id}`,
-          {
-            headers: {
-              "typ": "JWT",
-              "Authorization": `jwt ${token}`
-            }
-          }
-        )
-        .then((response) => {
-          // console.log(response);
-          dispatch(notify('The note deleted!'))
-          dispatch(showLoading(false));
-          //TODO: Re-load NoteList
-        })
-        .catch((error) => {
-          dispatch(showLoading(false));
-          console.log(error);
-        });
-
+      store.dispatch(requestDeleteNote(token, props.id, props.index));
     });
 
 

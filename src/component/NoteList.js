@@ -58,8 +58,8 @@ function NoteList({noteState}) {
         </Card>
       )}
 
-      {noteState.noteList.map(item => (
-        <Note title={item.title} content={item.content} id={item._id} key={item._id}/>
+      {noteState.noteList.map((item, index) => (
+        <Note title={item.title} content={item.content} id={item._id} index={index} key={index}/>
       ))}
 
     </Grid>
