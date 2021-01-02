@@ -4,9 +4,9 @@ const initialState = {
 
 export const noteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_NOTE_LIST':
-    case 'ADD_NOTE':
-    case 'DELETE_NOTE':
+    case 'RECEIVE_NOTE_LIST':
+    case 'RECEIVE_ADD_NOTE':
+    case 'RECEIVE_DELETE_NOTE':
     return {
       ...state,
       noteList: action.noteList

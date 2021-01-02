@@ -3,7 +3,8 @@ import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typogr
 import {MoreVert, Delete} from "@material-ui/icons";
 import axios from "axios";
 import {useDispatch} from "react-redux";
-import {deleteNoteRequest, showLoading} from "../store/actions";
+import {requestDeleteNote} from "../store/actions/noteActions";
+import {toggleLoading} from "../store/actions/coreActions";
 import store from "../store";
 
 function Note(props) {
@@ -15,10 +16,10 @@ function Note(props) {
   };
 
   function deleteNote() {
-    dispatch(showLoading(true));
+    dispatch(toggleLoading(true));
 
     getAccess().then((token) => {
-      store.dispatch(deleteNoteRequest(token, props.id, props.index));
+      store.dispatch(requestDeleteNote(token, props.id, props.index));
     });
 
 

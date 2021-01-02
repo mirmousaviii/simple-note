@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, CardActions, CardContent, Dialog, Grid, TextField} from "@material-ui/core";
-import {addNoteRequest} from '../store/actions';
+import {requestAddNote} from '../store/actions/noteActions';
 import store from "../store";
 
 function NoteCreator() {
@@ -10,7 +10,10 @@ function NoteCreator() {
 
 
   function toggleDialog() {
-    resetForm();
+    if (openModal === false) {
+      resetForm();
+    }
+
     setOpenModal(!openModal);
   }
 
@@ -21,7 +24,7 @@ function NoteCreator() {
 
   function addNote() {
     toggleDialog();
-    store.dispatch(addNoteRequest(title, content));
+    store.dispatch(requestAddNote(title, content));
   }
 
   return (

@@ -1,11 +1,10 @@
 import {combineReducers} from "redux";
-import {notificationReducer} from "./notificationReducer";
-import {loadingReducer} from "./loadingReducer";
+import {coreReducer} from "./coreReducer";
 import {noteReducer} from "./noteReducer";
 
 const reducers = combineReducers({
-  notification: notificationReducer,
-  loading: loadingReducer,
+  core: coreReducer,
+  loading: coreReducer,
   note: noteReducer,
 });
 
