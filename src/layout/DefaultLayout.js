@@ -1,12 +1,12 @@
 import React from "react";
 import {Container, CssBaseline} from "@material-ui/core";
 import Header from "./Header";
-import Notification from "./Notification";
-import Loading from "./Loading";
+import Notification from "../components/Notification";
+import Loading from "../components/Loading";
 import Footer from "./Footer";
 
 
-function Layout({children}) {
+function DefaultLayout({children}) {
 
   return (
     <>
@@ -23,4 +23,4 @@ function Layout({children}) {
   );
 }
 
-export default Layout;
+export default DefaultLayout;

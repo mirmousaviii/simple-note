@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import DefaultLayout from "../layout/DefaultLayout";
 import NoteCreator from "../components/NoteCreator";
 import NoteList from "../components/NoteList";
 import React from "react";
@@ -6,10 +6,10 @@ import React from "react";
 function Note() {
 
   return (
-    <Layout>
+    <DefaultLayout>
       <NoteCreator />
       <NoteList />
-    </Layout>
+    </DefaultLayout>
   );
 }
 
