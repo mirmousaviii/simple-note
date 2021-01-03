@@ -1,6 +1,6 @@
 const initialState = {
-  noteList: []
-}
+  noteList: [],
+};
 
 export const noteReducer = (state = initialState, action) => {
   let noteList = [...state.noteList];
@@ -9,21 +9,21 @@ export const noteReducer = (state = initialState, action) => {
     case 'SUCCESS_NOTE_LIST':
       return {
         ...state,
-        noteList: action.noteList
-      }
+        noteList: action.noteList,
+      };
     case 'SUCCESS_ADD_NOTE':
       noteList.push(action.newNote);
       return {
         ...state,
-        noteList: noteList
-      }
+        noteList: noteList,
+      };
     case 'SUCCESS_DELETE_NOTE':
-      noteList.splice(action.noteIndex, 1)
+      noteList.splice(action.noteIndex, 1);
       return {
         ...state,
-        noteList: noteList
-      }
+        noteList: noteList,
+      };
     default:
       return state;
   }
-}
+};

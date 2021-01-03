@@ -1,12 +1,12 @@
-import React from "react";
-import Note from "./pages/Note";
+import React from 'react';
+import Note from './pages/note';
 
 function App() {
 
   return (
-    <div className="App">
-      <Note />
-    </div>
+      <div className="App">
+        <Note/>
+      </div>
   );
 }
 
