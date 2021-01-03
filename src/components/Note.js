@@ -1,13 +1,10 @@
 import React from "react";
 import {Card, CardActions, CardContent, Grid, IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
 import {MoreVert, Delete} from "@material-ui/icons";
-import axios from "axios";
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {requestDeleteNote} from "../store/note/noteThunk";
-import {toggleLoading} from "../store/core/coreActions";
 
 function Note(props) {
-  const dispatch = useDispatch();
   const [anchorMenu, setAnchorMenu] = React.useState(null);
 
   const toggleMenu = (event) => {
@@ -15,39 +12,8 @@ function Note(props) {
   };
 
   function deleteNote() {
-    dispatch(toggleLoading(true));
-
-    getAccess().then((token) => {
-      props.deleteNote(props.id, props.index);
-    });
-
-
-    // toggleMenu();
-    setAnchorMenu(null);
-  }
-
-
-  async function getAccess() {
-    if(localStorage.getItem('token')) {
-      return localStorage.getItem('token');
-    }
-
-    // return await axios.post(
-    return await axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}/auth/token`,
-        {
-          email: process.env.REACT_APP_USERNAME,
-          password: process.env.REACT_APP_PASSWORD
-        }
-      )
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        return localStorage.getItem('token');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    props.deleteNote(props.id, props.index);
+    toggleMenu();
   }
 
   return (
