@@ -6,21 +6,14 @@ import {
   successAddNote,
   successNoteList,
 } from './noteActions';
+import {addNote, deleteNote, getNoteList} from '../../api/notes';
 
 export const requestNoteList = () => {
   return (dispatch) => {
     dispatch(toggleLoading(true));
     dispatch(requestToken()).then((token) => {
       return (
-          axios.get(
-              `${process.env.REACT_APP_BASE_URL}/notes`,
-              {
-                headers: {
-                  'typ': 'JWT',
-                  'Authorization': `jwt ${token}`,
-                },
-              },
-          ).then((response) => {
+          getNoteList(token).then((response) => {
             dispatch(toggleLoading(false));
             dispatch(successNoteList((response.data)));
           }).catch((error) => {
@@ -37,26 +30,15 @@ export const requestAddNote = (title, content) => {
     dispatch(toggleLoading(true));
     dispatch(requestToken()).then((token) => {
       return (
-          axios.post(
-              `${process.env.REACT_APP_BASE_URL}/notes`,
-              {
-                title: title,
-                content: content,
-              },
-              {
-                headers: {
-                  'typ': 'JWT',
-                  'Authorization': `jwt ${token}`,
-                },
-              },
-          ).then((response) => {
+          addNote(token, {title, content}).then((response) => {
             dispatch(toggleLoading(false));
             dispatch(successAddNote(response.data));
             dispatch(notify('The note added to list.'));
-          }).catch((error) => {
-            dispatch(toggleLoading(false));
-            dispatch(notify(error.message));
-          })
+          }).
+              catch((error) => {
+                dispatch(toggleLoading(false));
+                dispatch(notify(error.message));
+              })
       );
     });
   };
@@ -67,15 +49,7 @@ export const requestDeleteNote = (id, index) => {
     dispatch(toggleLoading(true));
     dispatch(requestToken()).then((token) => {
       return (
-          axios.delete(
-              `${process.env.REACT_APP_BASE_URL}/notes/${id}`,
-              {
-                headers: {
-                  'typ': 'JWT',
-                  'Authorization': `jwt ${token}`,
-                },
-              },
-          ).then(() => {
+          deleteNote(token, id).then(() => {
             dispatch(toggleLoading(false));
             dispatch(successDeleteNote(index));
             dispatch(notify('The note deleted!'));
