@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {notify, toggleLoading} from '../core/core-actions';
 import {requestToken} from '../auth/auth-thunk';
 import {
@@ -34,11 +33,10 @@ export const requestAddNote = (title, content) => {
             dispatch(toggleLoading(false));
             dispatch(successAddNote(response.data));
             dispatch(notify('The note added to list.'));
-          }).
-              catch((error) => {
-                dispatch(toggleLoading(false));
-                dispatch(notify(error.message));
-              })
+          }).catch((error) => {
+            dispatch(toggleLoading(false));
+            dispatch(notify(error.message));
+          })
       );
     });
   };
