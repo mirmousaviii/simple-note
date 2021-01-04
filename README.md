@@ -16,10 +16,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [x] Http client by Axios
 - [x] State manager by Redux
 - [x] Redux middleware by Redux Thunk
-- [ ] Middleware for httpClient (axios)
+- [x] Middleware for httpClient (axios)
 - [ ] router by react-router-dom
 - [x] Style code by Google JavaScript Style Guide
-- [ ] document by JSDoc
+- [ ] document by Storybook
 - [ ] Unit test by Jest
 - [ ] E2E test by Cypress
 
