@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+//TODO: make a login page and remove token form all of parts
+
 function HttpClient(method, url, data, params, token) {
   let baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -10,8 +12,9 @@ function HttpClient(method, url, data, params, token) {
     data,
     params,
     headers: {
-      'typ': 'JWT',
-      'Authorization': `jwt ${token}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      ...(token && {'Authorization': `jwt ${token}`}),
     },
   });
 }
