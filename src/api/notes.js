@@ -1,37 +1,25 @@
-import axios from 'axios';
+import HttpClient from '../utils/http-client';
 
-export const getNoteList = (token) => {
-  return axios.get(
-      `${process.env.REACT_APP_BASE_URL}/notes`,
-      {
-        headers: {
-          'typ': 'JWT',
-          'Authorization': `jwt ${token}`,
-        },
-      });
-};
+export const getNoteList = (token) => HttpClient(
+    'GET',
+    '/notes',
+    null,
+    null,
+    token,
+);
 
-export const addNote = (token, obj) => {
-  return axios.post(
-      `${process.env.REACT_APP_BASE_URL}/notes`,
-      obj,
-      {
-        headers: {
-          'typ': 'JWT',
-          'Authorization': `jwt ${token}`,
-        },
-      },
-  );
-};
+export const addNote = (token, data) => HttpClient(
+    'POST',
+    '/notes',
+    data,
+    null,
+    token,
+);
 
-export const deleteNote = (token, id) => {
-  return axios.delete(
-      `${process.env.REACT_APP_BASE_URL}/notes/${id}`,
-      {
-        headers: {
-          'typ': 'JWT',
-          'Authorization': `jwt ${token}`,
-        },
-      },
-  );
-};
+export const deleteNote = (token, id) => HttpClient(
+    'DELETE',
+    `/notes/${id}`,
+    null,
+    null,
+    token,
+);

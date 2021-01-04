@@ -1,10 +1,7 @@
-import axios from 'axios';
+import HttpClient from '../utils/http-client';
 
-export const getToken = ()=> {
-  return axios.post(
-      `${process.env.REACT_APP_BASE_URL}/auth/token`,
-      {
-        email: process.env.REACT_APP_USERNAME,
-        password: process.env.REACT_APP_PASSWORD,
-      });
-}
+export const getToken = (data) => HttpClient(
+    'POST',
+    '/auth/token',
+    data,
+);

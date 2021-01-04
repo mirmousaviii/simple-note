@@ -7,8 +7,12 @@ export const requestToken = () => {
       return Promise.resolve(localStorage.getItem('token'));
     }
 
+    const data = {
+      email: process.env.REACT_APP_USERNAME,
+      password: process.env.REACT_APP_PASSWORD,
+    };
     return Promise.resolve(
-        getToken.then((response) => {
+        getToken(data).then((response) => {
           localStorage.setItem('token', response.data.token);
           return localStorage.getItem('token');
         }).catch((error) => {
