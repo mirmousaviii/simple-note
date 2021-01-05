@@ -1,12 +1,15 @@
-import React from 'react';
-import Note from './pages/note';
+import {BrowserRouter, Route} from 'react-router-dom';
+import routes from './routes';
 
 function App() {
 
   return (
-      <div className="App">
-        <Note/>
-      </div>
+      <BrowserRouter>
+        {routes.map((item, index) => (
+                <Route {...item} key={index}/>
+            ),
+        )}
+      </BrowserRouter>
   );
 }
 

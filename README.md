@@ -17,9 +17,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [x] State manager by Redux
 - [x] Redux middleware by Redux Thunk
 - [x] Middleware for httpClient (axios)
-- [ ] router by react-router-dom
+- [x] router by react-router-dom
 - [x] Style code by Google JavaScript Style Guide
-- [ ] document by Storybook
+- [ ] Login/Logout page
+- [ ] Home page
+- [ ] 404 page
+- [ ] Linter
+- [ ] Document by Storybook
 - [ ] Unit test by Jest
 - [ ] E2E test by Cypress
 
