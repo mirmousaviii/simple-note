@@ -8,7 +8,7 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core';
-import {requestAddNote} from '../store/note/noteThunk';
+import {requestAddNote} from '../store/thunks/note';
 import {connect} from 'react-redux';
 
 function NoteCreator({addNote}) {

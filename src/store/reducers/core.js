@@ -3,7 +3,7 @@ const initialState = {
   notificationMessage: '',
 };
 
-export const coreReducer = (state = initialState, action) => {
+export const core = (state = initialState, action) => {
   switch (action.type) {
     case 'TOGGLE_LOADING':
       return {

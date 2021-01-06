@@ -19,9 +19,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [x] Middleware for httpClient (axios)
 - [x] router by react-router-dom
 - [x] Style code by Google JavaScript Style Guide
+- [x] Note page
 - [ ] Login/Logout page
 - [ ] Home page
 - [ ] 404 page
+- [ ] Navbar
 - [ ] Linter
 - [ ] Document by Storybook
 - [ ] Unit test by Jest
@@ -35,3 +37,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - https://redux.js.org/
 - https://github.com/reduxjs/redux-thunk
 - https://google.github.io/styleguide/jsguide.html
+- https://reactrouter.com/web/guides/quick-start
+- https://github.com/supasate/connected-react-router

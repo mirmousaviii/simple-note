@@ -2,7 +2,7 @@ const initialState = {
   noteList: [],
 };
 
-export const noteReducer = (state = initialState, action) => {
+export const note = (state = initialState, action) => {
   let noteList = [...state.noteList];
 
   switch (action.type) {

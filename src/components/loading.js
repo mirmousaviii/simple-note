@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Loading() {
-  let loadingStatus = useSelector(state => state.loading.loadingStatus);
+  let loadingStatus = useSelector(state => state.core.loadingStatus);
   const classes = useStyles();
 
   return (

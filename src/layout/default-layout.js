@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, CssBaseline} from '@material-ui/core';
+import {Box, Container, CssBaseline} from '@material-ui/core';
 import Header from './header';
 import Notification from '../components/notification';
 import Loading from '../components/loading';
@@ -12,7 +12,9 @@ function DefaultLayout({children}) {
         <CssBaseline/>
         <Header/>
         <Container maxWidth="md">
-          {children}
+          <Box m={4}>
+            {children}
+          </Box>
         </Container>
         <Notification/>
         <Loading/>

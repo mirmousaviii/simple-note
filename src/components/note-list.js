@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardContent, Grid, Typography} from '@material-ui/core';
 import Note from './note';
 import {connect} from 'react-redux';
-import {requestNoteList} from '../store/note/noteThunk';
+import {requestNoteList} from '../store/thunks/note';
 
 function NoteList({noteState, getNoteList}) {
 

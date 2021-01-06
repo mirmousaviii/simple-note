@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import {MoreVert, Delete} from '@material-ui/icons';
 import {connect} from 'react-redux';
-import {requestDeleteNote} from '../store/note/noteThunk';
+import {requestDeleteNote} from '../store/thunks/note';
 
 function Note(props) {
   const [anchorMenu, setAnchorMenu] = React.useState(null);
