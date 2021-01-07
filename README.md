@@ -39,3 +39,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - https://google.github.io/styleguide/jsguide.html
 - https://reactrouter.com/web/guides/quick-start
 - https://github.com/supasate/connected-react-router
+- https://github.com/zalmoxisus/redux-devtools-extension
