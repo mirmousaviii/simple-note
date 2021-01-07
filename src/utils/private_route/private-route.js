@@ -6,9 +6,9 @@ const PrivateRoute = (props) => {
     return <Redirect to="/login"/>;
   } else {
     return (React.createElement(Route, {
-      component: props.component,
-      path: props.path,
-      exact: props.exact,
+      ...(props.component && {component: props.component}),
+      ...(props.path && {path: props.path}),
+      ...(props.exact && {exact: props.exact}),
     }));
   }
 

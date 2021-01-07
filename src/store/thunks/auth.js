@@ -4,7 +4,6 @@ import {successLogin} from '../actions/auth';
 import {notify, toggleLoading} from '../actions/core';
 
 export const requestLogin = (email, password) => {
-
   return (dispatch) => {
     dispatch(toggleLoading(true));
     getToken({email, password}).then((response) => {
@@ -17,5 +16,14 @@ export const requestLogin = (email, password) => {
       dispatch(toggleLoading(false));
       dispatch(notify(error.message));
     });
+  };
+};
+
+export const requestToken = () => {
+  return (dispatch) => {
+    let token = localStorage.getItem('token');
+    if (token) {
+      dispatch(successLogin(token));
+    }
   };
 };

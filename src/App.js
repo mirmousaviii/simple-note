@@ -4,16 +4,14 @@ import {ConnectedRouter} from 'connected-react-router';
 import {routes, redirects} from './routes';
 import PrivateRoute from './utils/private_route/private-route';
 import {connect} from 'react-redux';
-import {successLogin} from './store/actions/auth';
+import {requestToken} from './store/thunks/auth';
 
 function App(props) {
 
-  //TODO: Load Token
-  // React.useEffect(()=>{
-  //   if (localStorage.getItem('token')) {
-  //     props.loadToken(localStorage.getItem('token'));
-  //   }
-  // }, []);
+  // TODO: Fix load token for first time
+  React.useEffect(() => {
+    props.loadToken();
+  }, []);
 
   return (
       <ConnectedRouter history={props.history}>
@@ -42,7 +40,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
 
-    loadToken: (token) => dispatch(successLogin(token)),
+    loadToken: () => dispatch(requestToken()),
   };
 };
 
