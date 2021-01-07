@@ -1,7 +1,8 @@
 import React from 'react';
-import {Route, Redirect, Switch} from 'react-router-dom';
+import {Redirect, Switch} from 'react-router-dom';
 import {ConnectedRouter} from 'connected-react-router';
 import {routes, redirects} from './routes';
+import PrivateRoute from './utils/private_route/private-route';
 
 function App(props) {
 
@@ -9,7 +10,7 @@ function App(props) {
       <ConnectedRouter history={props.history}>
         <Switch>
           {routes.map((item, index) => (
-                  <Route {...item} key={index}/>
+                  <PrivateRoute {...item} isAuthenticated={false} key={index}/>
               ),
           )}
           {redirects.map((item, index) => (
