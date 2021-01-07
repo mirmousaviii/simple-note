@@ -1,7 +1,7 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Redirect, Switch} from 'react-router-dom';
 import {ConnectedRouter} from 'connected-react-router';
-import routes from './routes';
+import {routes, redirects} from './routes';
 
 function App(props) {
 
@@ -10,6 +10,10 @@ function App(props) {
         <Switch>
           {routes.map((item, index) => (
                   <Route {...item} key={index}/>
+              ),
+          )}
+          {redirects.map((item, index) => (
+                  <Redirect {...item} key={index}/>
               ),
           )}
         </Switch>
