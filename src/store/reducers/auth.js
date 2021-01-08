@@ -1,5 +1,6 @@
 const initialState = {
   token: '',
+  isAuthenticated: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -9,6 +10,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         token: action.token,
+        isAuthenticated: true,
       };
     default:
       return state;
