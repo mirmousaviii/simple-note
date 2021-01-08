@@ -20,11 +20,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [x] router by react-router-dom
 - [x] Style code by Google JavaScript Style Guide
 - [x] Note page
-- [x] Login page
+- [x] Login & Logout page
 - [x] Home page
 - [x] 404 page
 - [x] Top menu
-- [ ] Linter
 - [ ] Document by Storybook
 - [ ] Unit test by Jest
 - [ ] E2E test by Cypress

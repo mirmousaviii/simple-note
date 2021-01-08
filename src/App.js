@@ -12,18 +12,13 @@ function App(props) {
     props.loadToken();
   }, []);
 
-  if (props.auth.token || !localStorage.getItem('token')) {
+  if (props.auth.isAuthenticated || !localStorage.getItem('token')) {
     return (
         <ConnectedRouter history={props.history}>
-          {redirects.map((item, index) => (
-                  <Redirect {...item} key={index}/>
-              ),
-          )}
-
           <Switch>
             {routes.map((item, index) => (
                     <PrivateRoute {...item}
-                                  isAuthenticated={Boolean(props.auth.token)}
+                                  isAuthenticated={props.auth.isAuthenticated}
                                   key={index}/>
                 ),
             )}

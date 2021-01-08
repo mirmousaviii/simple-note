@@ -1,6 +1,6 @@
 import {getToken} from '../../api/auth';
 import {push} from 'connected-react-router';
-import {successLoadToken, successLogin} from '../actions/auth';
+import {successLoadToken, successLogin, successLogout} from '../actions/auth';
 import {notify, toggleLoading} from '../actions/core';
 
 export const requestLogin = (email, password) => {
@@ -16,6 +16,14 @@ export const requestLogin = (email, password) => {
       dispatch(toggleLoading(false));
       dispatch(notify(error.message));
     });
+  };
+};
+
+export const requestLogout = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch(successLogout());
+    dispatch(push('/login'));
   };
 };
 
