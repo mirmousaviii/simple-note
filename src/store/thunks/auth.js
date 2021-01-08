@@ -1,6 +1,6 @@
 import {getToken} from '../../api/auth';
 import {push} from 'connected-react-router';
-import {successLogin} from '../actions/auth';
+import {successLoadToken, successLogin} from '../actions/auth';
 import {notify, toggleLoading} from '../actions/core';
 
 export const requestLogin = (email, password) => {
@@ -23,7 +23,7 @@ export const requestToken = () => {
   return (dispatch) => {
     let token = localStorage.getItem('token');
     if (token) {
-      dispatch(successLogin(token));
+      dispatch(successLoadToken(token));
     }
   };
 };

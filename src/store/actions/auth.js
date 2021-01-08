@@ -10,3 +10,10 @@ export const successLogout = () => {
     type: 'SUCCESS_LOGOUT',
   };
 };
+
+export const successLoadToken = (token) => {
+  return {
+    type: 'SUCCESS_LOAD_TOKEN',
+    token: token,
+  };
+};
