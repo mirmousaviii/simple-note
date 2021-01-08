@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - [x] router by react-router-dom
 - [x] Style code by Google JavaScript Style Guide
 - [x] Note page
-- [ ] Login/Logout page
+- [x] Login page
 - [x] Home page
 - [x] 404 page
 - [ ] Navbar
