@@ -30,6 +30,7 @@ axios.interceptors.response.use((response) => {
   store.dispatch(toggleLoading(false));
   store.dispatch(notify(error.message));
   if(error.response.status === 401) {
+    localStorage.removeItem('token');
     store.dispatch(push('/login'));
   }
   return Promise.reject(error);
