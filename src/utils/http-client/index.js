@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {store} from '../../index';
+import {notify, toggleLoading} from '../../store/actions/core';
+import {push} from 'connected-react-router';
 
 // Request interceptor
 axios.interceptors.request.use((config) => {
@@ -25,6 +27,11 @@ axios.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   // Response error
+  store.dispatch(toggleLoading(false));
+  store.dispatch(notify(error.message));
+  if(error.response.status === 401) {
+    store.dispatch(push('/login'));
+  }
   return Promise.reject(error);
 });
 

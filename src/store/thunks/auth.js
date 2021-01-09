@@ -12,9 +12,6 @@ export const requestLogin = (email, password) => {
       dispatch(successLogin(token));
       dispatch(toggleLoading(false));
       dispatch(push('/note'));
-    }).catch((error) => {
-      dispatch(toggleLoading(false));
-      dispatch(notify(error.message));
     });
   };
 };

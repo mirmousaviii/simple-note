@@ -12,9 +12,6 @@ export const requestNoteList = () => {
     getNoteList().then((response) => {
       dispatch(toggleLoading(false));
       dispatch(successNoteList((response.data)));
-    }).catch((error) => {
-      dispatch(toggleLoading(false));
-      dispatch(notify(error.message));
     });
   };
 };
@@ -26,9 +23,6 @@ export const requestAddNote = (title, content) => {
       dispatch(toggleLoading(false));
       dispatch(successAddNote(response.data));
       dispatch(notify('The note added to list.'));
-    }).catch((error) => {
-      dispatch(toggleLoading(false));
-      dispatch(notify(error.message));
     });
   };
 };
@@ -40,9 +34,6 @@ export const requestDeleteNote = (id, index) => {
       dispatch(toggleLoading(false));
       dispatch(successDeleteNote(index));
       dispatch(notify('The note deleted!'));
-    }).catch((error) => {
-      dispatch(toggleLoading(false));
-      dispatch(notify(error.message));
     });
   };
 };
