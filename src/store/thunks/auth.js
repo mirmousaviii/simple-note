@@ -9,8 +9,8 @@ export const requestLogin = (email, password) => {
     getToken({email, password}).then((response) => {
       const token = response.data.token;
       localStorage.setItem('token', token);
-      dispatch(toggleLoading(false));
       dispatch(successLogin(token));
+      dispatch(toggleLoading(false));
       dispatch(push('/note'));
     }).catch((error) => {
       dispatch(toggleLoading(false));

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Redirect, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import {ConnectedRouter} from 'connected-react-router';
-import {routes, redirects} from './routes';
+import {routes} from './routes';
 import PrivateRoute from './utils/private-route/private-route';
 import {connect} from 'react-redux';
 import {requestToken} from './store/thunks/auth';

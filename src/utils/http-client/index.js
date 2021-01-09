@@ -1,22 +1,43 @@
 import axios from 'axios';
+import {store} from '../../index';
 
-//TODO: make a login page and remove token form all of parts
-
-function HttpClient(method, url, data, params, token) {
-  let baseURL = process.env.REACT_APP_BASE_URL;
-
-  return axios.request({
-    method,
-    baseURL,
-    url,
-    data,
-    params,
+// Request interceptor
+axios.interceptors.request.use((config) => {
+  // Before request
+  const token = store.getState().auth.token;
+  return {
+    ...config,
+    baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       ...(token && {'Authorization': `jwt ${token}`}),
     },
-  });
-}
+  };
+}, (error) => {
+  // Request error
+  return Promise.reject(error);
+});
 
-export default HttpClient;
+// Response interceptor
+axios.interceptors.response.use((response) => {
+  // After response data
+  return response;
+}, (error) => {
+  // Response error
+  return Promise.reject(error);
+});
+
+const request = (method, url, data, params, config) => {
+  return axios.request(
+      {
+        method,
+        url,
+        data,
+        params,
+        ...config,
+      },
+  );
+};
+
+export default request;

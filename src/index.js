@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import configureStore, {history} from './store';
 
-const store = configureStore();
+export const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>

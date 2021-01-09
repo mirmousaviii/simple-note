@@ -1,25 +1,17 @@
 import HttpClient from '../utils/http-client';
 
-export const getNoteList = (token) => HttpClient(
+export const getNoteList = () => HttpClient(
     'GET',
     '/notes',
-    null,
-    null,
-    token,
 );
 
-export const addNote = (token, data) => HttpClient(
+export const addNote = (data) => HttpClient(
     'POST',
     '/notes',
     data,
-    null,
-    token,
 );
 
-export const deleteNote = (token, id) => HttpClient(
+export const deleteNote = (id) => HttpClient(
     'DELETE',
     `/notes/${id}`,
-    null,
-    null,
-    token,
 );

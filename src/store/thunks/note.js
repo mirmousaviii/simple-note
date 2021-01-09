@@ -7,10 +7,9 @@ import {
 import {addNote, deleteNote, getNoteList} from '../../api/notes';
 
 export const requestNoteList = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(toggleLoading(true));
-    const token = getState().auth.token;
-    getNoteList(token).then((response) => {
+    getNoteList().then((response) => {
       dispatch(toggleLoading(false));
       dispatch(successNoteList((response.data)));
     }).catch((error) => {
@@ -21,10 +20,9 @@ export const requestNoteList = () => {
 };
 
 export const requestAddNote = (title, content) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(toggleLoading(true));
-    const token = getState().auth.token;
-    addNote(token, {title, content}).then((response) => {
+    addNote({title, content}).then((response) => {
       dispatch(toggleLoading(false));
       dispatch(successAddNote(response.data));
       dispatch(notify('The note added to list.'));
@@ -36,10 +34,9 @@ export const requestAddNote = (title, content) => {
 };
 
 export const requestDeleteNote = (id, index) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(toggleLoading(true));
-    const token = getState().auth.token;
-    deleteNote(token, id).then(() => {
+    deleteNote(id).then(() => {
       dispatch(toggleLoading(false));
       dispatch(successDeleteNote(index));
       dispatch(notify('The note deleted!'));
