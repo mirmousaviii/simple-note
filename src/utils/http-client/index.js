@@ -28,7 +28,7 @@ axios.interceptors.response.use((response) => {
 }, (error) => {
   // Response error
   store.dispatch(toggleLoading(false));
-  store.dispatch(notify(error.message));
+  store.dispatch(notify(error.response.data));
   if(error.response.status === 401) {
     localStorage.removeItem('token');
     store.dispatch(push('/login'));
