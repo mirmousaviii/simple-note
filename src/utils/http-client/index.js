@@ -29,7 +29,7 @@ axios.interceptors.response.use((response) => {
   // Response error
   store.dispatch(toggleLoading(false));
   store.dispatch(notify(error.response.data));
-  if(error.response.status === 401) {
+  if (error.response.status === 401) {
     localStorage.removeItem('token');
     store.dispatch(push('/login'));
   }
@@ -37,15 +37,13 @@ axios.interceptors.response.use((response) => {
 });
 
 const request = (method, url, data, params, config) => {
-  return axios.request(
-      {
-        method,
-        url,
-        data,
-        params,
-        ...config,
-      },
-  );
+  return axios.request({
+    ...config,
+    method,
+    url,
+    data,
+    params,
+  });
 };
 
 export default request;

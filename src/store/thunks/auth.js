@@ -1,7 +1,7 @@
 import {getToken} from '../../api/auth';
 import {push} from 'connected-react-router';
 import {successLoadToken, successLogin, successLogout} from '../actions/auth';
-import {notify, toggleLoading} from '../actions/core';
+import {toggleLoading} from '../actions/core';
 
 export const requestLogin = (email, password) => {
   return (dispatch) => {
