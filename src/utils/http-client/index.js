@@ -2,6 +2,7 @@ import axios from 'axios';
 import {store} from '../../index';
 import {notify, toggleLoading} from '../../store/actions/core';
 import {push} from 'connected-react-router';
+import {successLogout} from '../../store/actions/auth';
 
 // Request interceptor
 axios.interceptors.request.use((config) => {
@@ -31,6 +32,7 @@ axios.interceptors.response.use((response) => {
   store.dispatch(notify(error.response.data));
   if (error.response.status === 401) {
     localStorage.removeItem('token');
+    store.dispatch(successLogout());
     store.dispatch(push('/login'));
   }
   return Promise.reject(error);
